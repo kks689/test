@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>相機測試頁</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    body {
+      font-family: sans-serif;
+      padding: 2rem;
+      text-align: center;
+    }
+    video {
+      width: 90%;
+      max-width: 480px;
+      border: 3px solid #5f72bd;
+      border-radius: 12px;
+      margin-top: 1rem;
+    }
+    button {
+      padding: 1rem 2rem;
+      font-size: 1.2rem;
+      border: none;
+      background: #5f72bd;
+      color: white;
+      border-radius: 12px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <h1>📷 相機測試</h1>
+  <p>點擊下方按鈕測試是否可以開啟相機</p>
+  <button onclick="startCamera()">開始測試相機</button>
+  <div id="status"></div>
+  <video id="video" autoplay playsinline></video>
+
+  <script>
+    async function startCamera() {
+      const statusEl = document.getElementById("status");
+      const video = document.getElementById("video");
+
+      statusEl.textContent = "請求使用相機中...";
+
+      try {
+        const stream = await navigator.mediaDevices.getUserMedia({
+          video: { facingMode: { ideal: "environment" } }
+        });
+        video.srcObject = stream;
+        statusEl.textContent = "✅ 相機啟動成功！請確認畫面是否有影像";
+      } catch (err) {
+        console.error("Camera error:", err);
+        statusEl.textContent = "❌ 相機開啟失敗：" + err.message;
+        alert("相機無法啟動：" + err.message);
+      }
+    }
+  </script>
+</body>
+</html>
