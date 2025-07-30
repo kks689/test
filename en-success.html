@@ -491,7 +491,7 @@
 
       <!-- Action Buttons -->
       <div class="action-buttons">
-        <a href="index-en-school-style.html" class="action-btn">
+        <a href="index-en.html" class="action-btn">
           🏠 Back to Home
         </a>
         <button onclick="submitAnother()" class="action-btn secondary-btn">
@@ -540,7 +540,7 @@
     function updateCountdown() {
       countdownElement.textContent = countdown;
       if (countdown === 0) {
-        window.location.href = "index-en-school-style.html";
+        window.location.href = "index-en.html";
       } else {
         countdown--;
         setTimeout(updateCountdown, 1000);
@@ -548,11 +548,11 @@
     }
 
     function submitAnother() {
-      window.location.href = "index-en-school-style.html";
+      window.location.href = "index-en.html";
     }
 
     function switchLanguage() {
-      window.location.href = 'success-school-style.html';
+      window.location.href = 'success.html';
     }
 
     // Start countdown when page loads
