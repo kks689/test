@@ -540,7 +540,7 @@
         <button onclick="retrySubmission()" class="action-btn retry-btn">
           🔄 重新提交
         </button>
-        <a href="index-school-style.html" class="action-btn">
+        <a href="index.html" class="action-btn">
           🏠 返回主頁
         </a>
         <button onclick="contactSupport()" class="action-btn secondary-btn">
@@ -589,7 +589,7 @@
     function updateCountdown() {
       countdownElement.textContent = countdown;
       if (countdown === 0) {
-        window.location.href = "index-school-style.html";
+        window.location.href = "index.html";
       } else {
         countdown--;
         setTimeout(updateCountdown, 1000);
@@ -597,7 +597,7 @@
     }
 
     function retrySubmission() {
-      window.location.href = "index-school-style.html";
+      window.location.href = "index.html";
     }
 
     function contactSupport() {
@@ -605,7 +605,7 @@
     }
 
     function switchLanguage() {
-      window.location.href = 'en-error-school-style.html';
+      window.location.href = 'en-error.html';
     }
 
     // Start countdown when page loads
