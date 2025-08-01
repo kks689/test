@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>表單已提交 - 佛教志蓮中學</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and Base Styles */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+      min-height: 100vh;
+      color: #1f2937;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Background Pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(34, 197, 94, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%),
+        radial-gradient(circle at 40% 60%, rgba(34, 197, 94, 0.1) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .school-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid #e5e7eb;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .school-name {
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .school-name-en {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+
+    /* Main Container */
+    .main-container {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .success-card {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 3rem;
+      max-width: 600px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .success-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #22c55e, #16a34a, #15803d);
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* Success Icon */
+    .success-icon {
+      width: 100px;
+      height: 100px;
+      margin: 0 auto 2rem;
+      background: linear-gradient(135deg, #22c55e 0%, #16a34a 100%);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+      color: white;
+      box-shadow: 0 8px 24px rgba(34, 197, 94, 0.3);
+      animation: successBounce 0.8s ease-out;
+      position: relative;
+    }
+
+    .success-icon::before {
+      content: '';
+      position: absolute;
+      width: 120px;
+      height: 120px;
+      border: 3px solid rgba(34, 197, 94, 0.2);
+      border-radius: 50%;
+      animation: successRipple 2s infinite;
+    }
+
+    @keyframes successBounce {
+      0% {
+        opacity: 0;
+        transform: scale(0.3) translateY(20px);
+      }
+      50% {
+        opacity: 1;
+        transform: scale(1.1) translateY(-10px);
+      }
+      70% {
+        transform: scale(0.95) translateY(5px);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1) translateY(0);
+      }
+    }
+
+    @keyframes successRipple {
+      0% {
+        transform: scale(0.8);
+        opacity: 1;
+      }
+      100% {
+        transform: scale(1.2);
+        opacity: 0;
+      }
+    }
+
+    /* Content */
+    .success-title {
+      font-size: 2.5rem;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 1rem;
+      letter-spacing: 1px;
+      animation: fadeInUp 0.6s ease-out 0.2s both;
+    }
+
+    .success-subtitle {
+      font-size: 1.2rem;
+      color: #22c55e;
+      font-weight: 600;
+      margin-bottom: 1.5rem;
+      animation: fadeInUp 0.6s ease-out 0.4s both;
+    }
+
+    .success-description {
+      font-size: 1.1rem;
+      color: #6b7280;
+      line-height: 1.6;
+      margin-bottom: 2.5rem;
+      animation: fadeInUp 0.6s ease-out 0.6s both;
+    }
+
+    /* Action Buttons */
+    .action-buttons {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-bottom: 2rem;
+      animation: fadeInUp 0.6s ease-out 0.8s both;
+    }
+
+    .action-btn {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem 2rem;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3);
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .action-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .action-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(30, 58, 138, 0.4);
+    }
+
+    .action-btn:hover::before {
+      left: 100%;
+    }
+
+    .action-btn:active {
+      transform: translateY(0);
+    }
+
+    .secondary-btn {
+      background: rgba(107, 114, 128, 0.1);
+      color: #374151;
+      border: 2px solid #e5e7eb;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .secondary-btn:hover {
+      background: rgba(107, 114, 128, 0.15);
+      border-color: #d1d5db;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.15);
+    }
+
+    /* Countdown */
+    .countdown-section {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1rem;
+      border: 2px solid #e2e8f0;
+      animation: fadeInUp 0.6s ease-out 1s both;
+    }
+
+    .countdown-text {
+      font-size: 1rem;
+      color: #6b7280;
+      margin-bottom: 0.5rem;
+    }
+
+    .countdown-timer {
+      font-size: 1.5rem;
+      font-weight: bold;
+      color: #1e3a8a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+    }
+
+    .countdown-number {
+      background: linear-gradient(135deg, #3b82f6, #1e40af);
+      color: white;
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      min-width: 3rem;
+      animation: pulse 1s infinite;
+    }
+
+    @keyframes pulse {
+      0%, 100% {
+        transform: scale(1);
+      }
+      50% {
+        transform: scale(1.05);
+      }
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      color: #1e40af;
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-switcher:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(30, 58, 138, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Animations */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        padding: 0 1rem;
+      }
+
+      .school-name {
+        font-size: 1.2rem;
+      }
+
+      .main-container {
+        padding: 1rem;
+      }
+
+      .success-card {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+      }
+
+      .success-title {
+        font-size: 2rem;
+      }
+
+      .success-icon {
+        width: 80px;
+        height: 80px;
+        font-size: 2.5rem;
+      }
+
+      .action-buttons {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .action-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .footer-info {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .lang-switcher {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .success-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .success-title {
+        font-size: 1.5rem;
+      }
+
+      .success-icon {
+        width: 70px;
+        height: 70px;
+        font-size: 2rem;
+      }
+
+      .countdown-timer {
+        font-size: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="school-logo">
+        <div class="logo-icon">
+          <img src="school-logo.png" alt="佛教志蓮中學校徽" />
+        </div>
+        <div>
+          <div class="school-name">佛教志蓮中學</div>
+          <div class="school-name-en">CHI LIN BUDDHIST SECONDARY SCHOOL</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <div class="success-card">
+      <button class="lang-switcher" onclick="switchLanguage()">EN</button>
+      
+      <!-- Success Icon -->
+      <div class="success-icon">
+        ✓
+      </div>
+
+      <!-- Content -->
+      <h1 class="success-title">表單已成功提交！</h1>
+      <p class="success-subtitle">🎉 提交完成</p>
+      <p class="success-description">
+        感謝您使用iPad借還登記系統。您的資訊已成功記錄，系統將自動處理您的申請。
+        <br>如有任何問題，請聯繫管理員。
+      </p>
+
+      <!-- Action Buttons -->
+      <div class="action-buttons">
+        <a href="index.html" class="action-btn">
+          🏠 返回主頁
+        </a>
+        <button onclick="submitAnother()" class="action-btn secondary-btn">
+          📝 再次提交
+        </button>
+      </div>
+
+      <!-- Countdown Section -->
+      <div class="countdown-section">
+        <div class="countdown-text">自動跳轉倒計時</div>
+        <div class="countdown-timer">
+          <span id="countdown" class="countdown-number">5</span>
+          <span>秒後返回主頁</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-item">
+          <span>📍</span>
+          <span>地址: 九龍鑽石山志蓮道 9 號</span>
+        </div>
+        <div class="footer-item">
+          <span>📞</span>
+          <span>電話: 2321 8511</span>
+        </div>
+        <div class="footer-item">
+          <span>📠</span>
+          <span>傳真: 2321 2776</span>
+        </div>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+        © 2025 佛教志蓮中學 Chi Lin Buddhist Secondary School. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    let countdown = 5;
+    const countdownElement = document.getElementById("countdown");
+
+    function updateCountdown() {
+      countdownElement.textContent = countdown;
+      if (countdown === 0) {
+        window.location.href = "index.html";
+      } else {
+        countdown--;
+        setTimeout(updateCountdown, 1000);
+      }
+    }
+
+    function submitAnother() {
+      window.location.href = "index.html";
+    }
+
+    function switchLanguage() {
+      window.location.href = 'en-success.html';
+    }
+
+    // Start countdown when page loads
+    window.onload = function() {
+      // Add a small delay to let animations complete
+      setTimeout(updateCountdown, 1000);
+    };
+
+    // Add smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    // Add click effect to buttons
+    document.querySelectorAll('.action-btn').forEach(btn => {
+      btn.addEventListener('click', function(e) {
+        // Create ripple effect
+        const ripple = document.createElement('span');
+        const rect = this.getBoundingClientRect();
+        const size = Math.max(rect.width, rect.height);
+        const x = e.clientX - rect.left - size / 2;
+        const y = e.clientY - rect.top - size / 2;
+        
+        ripple.style.cssText = `
+          position: absolute;
+          width: ${size}px;
+          height: ${size}px;
+          left: ${x}px;
+          top: ${y}px;
+          background: rgba(255, 255, 255, 0.3);
+          border-radius: 50%;
+          transform: scale(0);
+          animation: ripple 0.6s linear;
+          pointer-events: none;
+        `;
+        
+        this.appendChild(ripple);
+        
+        setTimeout(() => {
+          ripple.remove();
+        }, 600);
+      });
+    });
+
+    // Add ripple animation
+    const style = document.createElement('style');
+    style.textContent = `
+      @keyframes ripple {
+        to {
+          transform: scale(2);
+          opacity: 0;
+        }
+      }
+    `;
+    document.head.appendChild(style);
+  </script>
+</body>
+</html>
+
