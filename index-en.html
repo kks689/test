@@ -730,9 +730,9 @@
         if (text.trim() === "OK") {
           message.textContent = 'Submission successful! Redirecting...';
           message.className = 'message success';
-          setTimeout(() => {
-            window.location.href = "success.html";
-          }, 1500);
+       setTimeout(() => {
+    window.location.href = "en-success.html";
+		}, 1500);
         } else {
           message.textContent = 'Submission failed, please try again later';
           message.className = 'message error';
