@@ -1,0 +1,782 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="UTF-8">
+  <title>平板借還及問題報告登記表 - 佛教志蓮中學</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <style>
+    /* Reset and Base Styles */
+    *, *::before, *::after {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Microsoft JhengHei', '微軟正黑體', 'PingFang TC', 'Helvetica Neue', Arial, sans-serif;
+      background: linear-gradient(135deg, #1e3a8a 0%, #1e40af 50%, #2563eb 100%);
+      min-height: 100vh;
+      color: #1f2937;
+      line-height: 1.6;
+      position: relative;
+      overflow-x: hidden;
+    }
+
+    /* Background Pattern */
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 20%, rgba(255, 255, 255, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 80%, rgba(255, 255, 255, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    /* Header */
+    .header {
+      background: rgba(255, 255, 255, 0.95);
+      backdrop-filter: blur(10px);
+      padding: 1rem 0;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      position: relative;
+      z-index: 10;
+    }
+
+    .header-content {
+      max-width: 1200px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      padding: 0 2rem;
+    }
+
+    .school-logo {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo-icon {
+      width: 50px;
+      height: 50px;
+      background: white;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 8px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      border: 2px solid #e5e7eb;
+    }
+
+    .logo-icon img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+
+    .school-name {
+      color: #1e3a8a;
+      font-size: 1.5rem;
+      font-weight: bold;
+      letter-spacing: 1px;
+    }
+
+    .school-name-en {
+      color: #6b7280;
+      font-size: 0.9rem;
+      margin-top: 2px;
+    }
+
+    /* Main Container */
+    .main-container {
+      max-width: 800px;
+      margin: 2rem auto;
+      padding: 0 2rem;
+      position: relative;
+      z-index: 5;
+    }
+
+    .form-card {
+      background: rgba(255, 255, 255, 0.98);
+      backdrop-filter: blur(20px);
+      border-radius: 20px;
+      padding: 3rem;
+      box-shadow: 
+        0 20px 40px rgba(0, 0, 0, 0.1),
+        0 10px 20px rgba(0, 0, 0, 0.05),
+        inset 0 1px 0 rgba(255, 255, 255, 0.9);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .form-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      height: 4px;
+      background: linear-gradient(90deg, #ef4444, #f97316, #eab308, #22c55e, #3b82f6, #8b5cf6);
+      border-radius: 20px 20px 0 0;
+    }
+
+    /* Form Header */
+    .form-header {
+      text-align: center;
+      margin-bottom: 2.5rem;
+    }
+
+    .form-title {
+      font-size: 2rem;
+      font-weight: bold;
+      color: #1e3a8a;
+      margin-bottom: 0.5rem;
+      letter-spacing: 1px;
+    }
+
+    .form-subtitle {
+      color: #6b7280;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .datetime {
+      background: linear-gradient(135deg, #1e3a8a, #2563eb);
+      color: white;
+      padding: 0.8rem 1.5rem;
+      border-radius: 25px;
+      font-size: 1rem;
+      font-weight: 500;
+      display: inline-block;
+      box-shadow: 0 4px 12px rgba(30, 58, 138, 0.3);
+    }
+
+    /* Form Groups */
+    .form-group {
+      margin-bottom: 2rem;
+    }
+
+    .form-label {
+      display: block;
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: #1f2937;
+      margin-bottom: 0.8rem;
+    }
+
+    .label-tip {
+      font-size: 0.9rem;
+      color: #6b7280;
+      font-weight: 400;
+      margin-left: 0.5rem;
+    }
+
+    .form-description {
+      color: #6b7280;
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    /* Radio Button Container */
+    .radio-container {
+      background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+      border-radius: 16px;
+      padding: 1.5rem;
+      border: 2px solid #e2e8f0;
+      transition: all 0.3s ease;
+    }
+
+    .radio-group {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .radio-option {
+      background: white;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      padding: 1.2rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .radio-option::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(135deg, transparent 0%, rgba(59, 130, 246, 0.05) 100%);
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+
+    .radio-option:hover {
+      border-color: #3b82f6;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(59, 130, 246, 0.15);
+    }
+
+    .radio-option:hover::before {
+      opacity: 1;
+    }
+
+    .radio-option.selected {
+      border-color: #3b82f6;
+      background: linear-gradient(135deg, #dbeafe 0%, #bfdbfe 100%);
+      box-shadow: 0 4px 12px rgba(59, 130, 246, 0.2);
+    }
+
+    .radio-option input[type="radio"] {
+      width: 1.2rem;
+      height: 1.2rem;
+      accent-color: #3b82f6;
+      cursor: pointer;
+    }
+
+    .radio-option span {
+      font-size: 1rem;
+      font-weight: 600;
+      color: #1f2937;
+      transition: color 0.3s ease;
+    }
+
+    .radio-option.selected span {
+      color: #1e40af;
+    }
+
+    /* Input Fields */
+    input, select, textarea {
+      width: 100%;
+      padding: 1rem 1.2rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 12px;
+      font-size: 1rem;
+      background: white;
+      transition: all 0.3s ease;
+      font-family: inherit;
+    }
+
+    input:focus, select:focus, textarea:focus {
+      outline: none;
+      border-color: #3b82f6;
+      box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+      transform: translateY(-1px);
+    }
+
+    select:invalid {
+      color: #9ca3af;
+    }
+
+    textarea {
+      min-height: 100px;
+      resize: vertical;
+    }
+
+    /* Submit Button */
+    .submit-btn {
+      background: linear-gradient(135deg, #1e3a8a 0%, #2563eb 50%, #3b82f6 100%);
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1.2rem 2rem;
+      font-size: 1.1rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      width: 100%;
+      margin-top: 1.5rem;
+      box-shadow: 0 8px 16px rgba(30, 58, 138, 0.3);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .submit-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .submit-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 12px 24px rgba(30, 58, 138, 0.4);
+    }
+
+    .submit-btn:hover::before {
+      left: 100%;
+    }
+
+    .submit-btn:active {
+      transform: translateY(0);
+    }
+
+    .submit-btn:disabled {
+      background: #9ca3af;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    /* Message */
+    .message {
+      text-align: center;
+      font-size: 1rem;
+      font-weight: 600;
+      min-height: 1.5rem;
+      margin-top: 1rem;
+      padding: 0.8rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .message.success {
+      background: #dcfce7;
+      color: #166534;
+      border: 1px solid #bbf7d0;
+    }
+
+    .message.error {
+      background: #fef2f2;
+      color: #dc2626;
+      border: 1px solid #fecaca;
+    }
+
+    .message.info {
+      background: #dbeafe;
+      color: #1d4ed8;
+      border: 1px solid #bfdbfe;
+    }
+
+    /* Validation Hint */
+    .hint {
+      color: #dc2626;
+      font-size: 0.875rem;
+      margin-top: 0.5rem;
+      display: none;
+      padding: 0.5rem;
+      background: #fef2f2;
+      border-radius: 6px;
+      border: 1px solid #fecaca;
+    }
+
+    /* Language Switcher */
+    .lang-switcher {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background: rgba(59, 130, 246, 0.1);
+      color: #1e40af;
+      border: 2px solid rgba(59, 130, 246, 0.2);
+      border-radius: 20px;
+      padding: 0.5rem 1rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      backdrop-filter: blur(10px);
+    }
+
+    .lang-switcher:hover {
+      background: rgba(59, 130, 246, 0.15);
+      border-color: #3b82f6;
+      transform: translateY(-1px);
+    }
+
+    /* Footer */
+    .footer {
+      background: rgba(30, 58, 138, 0.95);
+      color: white;
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      backdrop-filter: blur(10px);
+    }
+
+    .footer-content {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .footer-info {
+      display: flex;
+      justify-content: center;
+      gap: 2rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .footer-item {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 768px) {
+      .header-content {
+        padding: 0 1rem;
+      }
+
+      .school-name {
+        font-size: 1.2rem;
+      }
+
+      .main-container {
+        padding: 0 1rem;
+        margin: 1rem auto;
+      }
+
+      .form-card {
+        padding: 2rem 1.5rem;
+        border-radius: 16px;
+      }
+
+      .form-title {
+        font-size: 1.5rem;
+      }
+
+      .radio-group {
+        grid-template-columns: 1fr;
+        gap: 0.8rem;
+      }
+
+      .radio-option {
+        padding: 1rem;
+      }
+
+      .footer-info {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .lang-switcher {
+        top: 0.5rem;
+        right: 0.5rem;
+        padding: 0.4rem 0.8rem;
+        font-size: 0.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .form-card {
+        padding: 1.5rem 1rem;
+      }
+
+      .form-title {
+        font-size: 1.3rem;
+      }
+
+      .datetime {
+        font-size: 0.9rem;
+        padding: 0.6rem 1.2rem;
+      }
+    }
+
+    /* Loading Animation */
+    .loading {
+      display: inline-block;
+      width: 1rem;
+      height: 1rem;
+      border: 2px solid rgba(255, 255, 255, 0.3);
+      border-radius: 50%;
+      border-top-color: white;
+      animation: spin 1s ease-in-out infinite;
+      margin-right: 0.5rem;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Success Animation */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .fade-in-up {
+      animation: fadeInUp 0.5s ease-out;
+    }
+  </style>
+</head>
+<body>
+  <!-- Header -->
+  <header class="header">
+    <div class="header-content">
+      <div class="school-logo">
+        <div class="logo-icon">
+          <img src="school-logo.png" alt="佛教志蓮中學校徽" />
+        </div>
+        <div>
+          <div class="school-name">佛教志蓮中學</div>
+          <div class="school-name-en">CHI LIN BUDDHIST SECONDARY SCHOOL</div>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="main-container">
+    <div class="form-card fade-in-up">
+      <button class="lang-switcher" onclick="switchLanguage()">EN</button>
+      
+      <div class="form-header">
+        <h1 class="form-title">平板借還及問題報告登記表</h1>
+        <p class="form-subtitle">iPad Borrowing and Return Registration Form</p>
+        <div class="datetime" id="datetime"></div>
+      </div>
+
+      <form id="regForm" autocomplete="off">
+        <!-- 語言標識 -->
+        <input type="hidden" name="language" value="zh">
+        
+        <!-- 登記類型 -->
+        <div class="form-group">
+          <label class="form-label">登記類型</label>
+          <p class="form-description">請選擇您要進行的操作類型，如有問題可聯繫管理員</p>
+          <div class="radio-container">
+            <div class="radio-group">
+              <label class="radio-option">
+                <input type="radio" name="type" value="借用" required>
+                <span>借用 iPad</span>
+              </label>
+              <label class="radio-option">
+                <input type="radio" name="type" value="歸還">
+                <span>歸還 iPad</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- 姓名縮寫 -->
+        <div class="form-group">
+          <label for="name" class="form-label">
+            姓名縮寫
+            <span class="label-tip">例如：<strong>cbs</strong>（只限2個或以上英文字母）</span>
+          </label>
+          <input name="name" id="name" required placeholder="請輸入全英文字母縮寫，例如：cbs">
+          <div class="hint" id="nameHint">⚠️ 只可輸入2個或以上英文字母（A-Z，a-z），不能有數字或符號</div>
+        </div>
+
+        <!-- 班級 -->
+        <div class="form-group">
+          <label for="grade" class="form-label">班級</label>
+          <select name="grade" id="grade" required>
+            <option value="" disabled selected>請選擇班級</option>
+            <option value="1A">1A</option>
+            <option value="1B">1B</option>
+            <option value="1C">1C</option>
+            <option value="2A">2A</option>
+            <option value="2B">2B</option>
+            <option value="2C">2C</option>
+            <option value="3A">3A</option>
+            <option value="3B">3B</option>
+            <option value="3C">3C</option>
+            <option value="4A">4A</option>
+            <option value="4B">4B</option>
+            <option value="4C">4C</option>
+            <option value="5A">5A</option>
+            <option value="5B">5B</option>
+            <option value="5C">5C</option>
+            <option value="6A">6A</option>
+            <option value="6B">6B</option>
+            <option value="6C">6C</option>
+          </select>
+        </div>
+
+        <!-- 數量 -->
+        <div class="form-group">
+          <label for="qty" class="form-label">數量</label>
+          <input name="qty" id="qty" type="number" min="1" required placeholder="請輸入數量">
+        </div>
+
+        <!-- 備註 -->
+        <div class="form-group">
+          <label for="remark" class="form-label">備註</label>
+          <textarea name="remark" id="remark" placeholder="如有平板遺失、損壞等問題，請在此說明"></textarea>
+        </div>
+
+        <!-- 提交按鈕 -->
+        <button type="submit" class="submit-btn" id="submitBtn">
+          <span id="btnText">提交登記</span>
+        </button>
+        <div class="message" id="message"></div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-info">
+        <div class="footer-item">
+          <span>📍</span>
+          <span>地址: 九龍鑽石山志蓮道 9 號</span>
+        </div>
+        <div class="footer-item">
+          <span>📞</span>
+          <span>電話: 2321 8511</span>
+        </div>
+        <div class="footer-item">
+          <span>📠</span>
+          <span>傳真: 2321 2776</span>
+        </div>
+      </div>
+      <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8;">
+        © 2025 佛教志蓮中學 Chi Lin Buddhist Secondary School. All rights reserved.
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    const apiUrl = "https://script.google.com/macros/s/AKfycby6YA0EZq_ihcQNvRw3KjJL1n7_4Lol8BePgV40la9QP93gVQSqjNTsi2LKKzi8NJ3h/exec";
+
+    // Real-time clock
+    function updateTime() {
+      const now = new Date();
+      const formatter = (num) => String(num).padStart(2, '0');
+      document.getElementById("datetime").textContent =
+        `${now.getFullYear()}年${formatter(now.getMonth() + 1)}月${formatter(now.getDate())}日 ${formatter(now.getHours())}:${formatter(now.getMinutes())}:${formatter(now.getSeconds())}`;
+    }
+    setInterval(updateTime, 1000);
+    updateTime();
+
+    // Radio button interactions
+    document.querySelectorAll('input[name="type"]').forEach(radio => {
+      radio.addEventListener('change', function() {
+        // Update visual state
+        document.querySelectorAll('.radio-option').forEach(option => {
+          option.classList.remove('selected');
+        });
+        this.closest('.radio-option').classList.add('selected');
+      });
+    });
+
+    // Name validation
+    document.getElementById('name').addEventListener('input', function() {
+      const value = this.value;
+      const hint = document.getElementById('nameHint');
+      
+      if (value && (!/^[A-Za-z]+$/.test(value) || value.length < 2)) {
+        this.setCustomValidity("請輸入2個或以上英文字母，例如：cbs");
+        hint.style.display = 'block';
+      } else {
+        this.setCustomValidity("");
+        hint.style.display = 'none';
+      }
+    });
+
+    // Form submission
+    document.getElementById('regForm').addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const message = document.getElementById('message');
+      const submitBtn = document.getElementById('submitBtn');
+      const btnText = document.getElementById('btnText');
+      let isTimeout = false;
+
+      // Disable submit button and show loading
+      submitBtn.disabled = true;
+      btnText.innerHTML = '<span class="loading"></span>提交中...';
+      message.textContent = '請稍候... 正在提交中';
+      message.className = 'message info';
+
+      const timeoutId = setTimeout(() => {
+        isTimeout = true;
+        message.textContent = '伺服器繁忙，請稍後再試';
+        message.className = 'message error';
+        setTimeout(() => {
+          window.location.href = "error.html";
+        }, 2000);
+      }, 15000);
+
+      try {
+        const response = await fetch(apiUrl, { 
+          method: 'POST', 
+          body: formData 
+        });
+        const text = await response.text();
+        
+        if (isTimeout) return;
+        clearTimeout(timeoutId);
+        
+        if (text.trim() === "OK") {
+          message.textContent = '提交成功！正在跳轉...';
+          message.className = 'message success';
+          setTimeout(() => {
+            window.location.href = "success.html";
+          }, 1500);
+        } else {
+          message.textContent = '提交失敗，請稍後再試';
+          message.className = 'message error';
+          setTimeout(() => {
+            window.location.href = "error.html";
+          }, 2000);
+        }
+      } catch (error) {
+        if (isTimeout) return;
+        clearTimeout(timeoutId);
+        message.textContent = '提交失敗，請稍後再試';
+        message.className = 'message error';
+        setTimeout(() => {
+          window.location.href = "error.html";
+        }, 2000);
+      }
+    });
+
+    // Language switch function
+    function switchLanguage() {
+      window.location.href = 'index-en.html';
+    }
+
+    // Add smooth scroll behavior
+    document.documentElement.style.scrollBehavior = 'smooth';
+
+    // Add form validation feedback
+    document.querySelectorAll('input, select, textarea').forEach(field => {
+      field.addEventListener('blur', function() {
+        if (this.checkValidity()) {
+          this.style.borderColor = '#22c55e';
+        } else {
+          this.style.borderColor = '#ef4444';
+        }
+      });
+
+      field.addEventListener('input', function() {
+        if (this.checkValidity()) {
+          this.style.borderColor = '#e2e8f0';
+        }
+      });
+    });
+  </script>
+</body>
+</html>
+
